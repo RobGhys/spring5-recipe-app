@@ -118,8 +118,26 @@ public class Recipe {
         return notes;
     }
 
+    /**
+     * @requires notes != null
+     * @modifies this.notes && notes.recipe
+     * @effects this.notes = notes
+     */
     public void setNotes(Notes notes) {
         this.notes = notes;
+        notes.setRecipe(this); //build the association
+    }
+
+    /**
+     * @requires ingredient != null
+     * @modifies ingredient && this.ingredients
+     * @effects adds this to ingredient.recipes && adds ingredient to this.ingredients
+     * @returns this
+     */
+    public Recipe addIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
     }
 
     public Set<Ingredient> getIngredients() {
