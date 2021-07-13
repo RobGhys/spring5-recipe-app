@@ -42,6 +42,5 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
         assertNotNull(uom);
         assertEquals(LONG_VALUE, uom.getId());
         assertEquals(DESCRIPTION, uom.getDescription());
-
     }
 }
