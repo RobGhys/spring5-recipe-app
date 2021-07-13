@@ -5,6 +5,7 @@ import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.NotesCommand;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.Difficulty;
+import guru.springframework.domain.Recipe;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,5 +76,23 @@ public class RecipeCommandToRecipeTest {
         ingredient2.setId(INGRED_ID_2);
         recipeCommand.getIngredients().add(ingredient1);
         recipeCommand.getIngredients().add(ingredient2);
+
+        // When
+        Recipe recipe = converter.convert(recipeCommand);
+
+        // Then
+        assertNotNull(recipe);
+        assertEquals(RECIPE_ID, recipe.getId());
+        assertEquals(COOK_TIME, recipe.getCookTime());
+        assertEquals(PREP_TIME, recipe.getPrepTime());
+        assertEquals(DESCRIPTION, recipe.getDescription());
+        assertEquals(DIFFICULTY, recipe.getDifficulty());
+        assertEquals(DIRECTIONS, recipe.getDirections());
+        assertEquals(SERVINGS, recipe.getServings());
+        assertEquals(SOURCE, recipe.getSource());
+        assertEquals(URL, recipe.getUrl());
+        assertEquals(NOTES_ID, recipe.getNotes().getId());
+        assertEquals(2, recipe.getCategories().size());
+        assertEquals(2, recipe.getIngredients().size());
     }
 }
