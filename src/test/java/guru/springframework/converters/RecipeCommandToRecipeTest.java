@@ -45,6 +45,7 @@ public class RecipeCommandToRecipeTest {
         assertNotNull(converter.convert(new RecipeCommand()));
     }
 
+
     @Test
     public void convert() throws Exception {
         // Given

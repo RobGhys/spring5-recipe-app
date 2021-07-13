@@ -51,8 +51,10 @@ public class Recipe {
      * @effects this.notes = notes
      */
     public void setNotes(Notes notes) {
-        this.notes = notes;
-        notes.setRecipe(this); //build the association
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this); //build the association
+        }
     }
 
     /**

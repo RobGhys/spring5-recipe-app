@@ -38,8 +38,6 @@ public class RecipeToRecipeCommandTest {
     }
 
     // Test for the non-Null case
-
-
     @Test
     public void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new Recipe()));

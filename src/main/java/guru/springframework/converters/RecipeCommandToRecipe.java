@@ -38,6 +38,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
 
         recipe.setNotes(notesConverter.convert(source.getNotes()));
 
+
         // If categories are not null, and they contain at least 1 element,
         // Then we add the category to the recipe
         if(source.getCategories() != null && source.getCategories().size() > 0) {
