@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+    @GetMapping// Only Get http method will be supported by this function
     @RequestMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
@@ -21,6 +23,7 @@ public class RecipeController {
         return "recipe/show";
     }
 
+    @GetMapping// Only Get http method will be supported by this function
     @RequestMapping("recipe/new")
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
@@ -28,6 +31,7 @@ public class RecipeController {
         return "recipe/recipeform"; // view name that matches recipeform.html
     }
 
+    @GetMapping// Only Get http method will be supported by this function
     @RequestMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
@@ -36,12 +40,22 @@ public class RecipeController {
 
     // @ModelAttribute is used to bind the form post parameters to the recipe command object
     // It will happen automatically thanks to the naming conventions that we used in the form
-    @PostMapping
+    @PostMapping// Only POST http method will be supported by this function
     @RequestMapping("recipe") // We don't use the name attribute as there is a bug in Spring with --> name = "recipe"
     public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
         // Redirect to a specific URL
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
+    }
+
+    // Only Get http method will be supported by this function
+    @GetMapping
+    @RequestMapping("recipe/{id}/delete")
+    public String deleteById(@PathVariable String id) {
+        //log.debug("Deleteing id# " + id);
+        recipeService.deleteById(Long.valueOf(id));
+
+        return "redirect:/";
     }
 }
