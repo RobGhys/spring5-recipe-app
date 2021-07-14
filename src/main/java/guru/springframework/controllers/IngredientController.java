@@ -61,7 +61,7 @@ public class IngredientController {
 
         // Init unitOfMeasure
         // Used for drop-down list
-        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
 
         return "recipe/ingredient/ingredientform";

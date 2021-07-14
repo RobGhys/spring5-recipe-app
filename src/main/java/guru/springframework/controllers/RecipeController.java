@@ -40,8 +40,7 @@ public class RecipeController {
 
     // @ModelAttribute is used to bind the form post parameters to the recipe command object
     // It will happen automatically thanks to the naming conventions that we used in the form
-    @PostMapping// Only POST http method will be supported by this function
-    @RequestMapping("recipe") // We don't use the name attribute as there is a bug in Spring with --> name = "recipe"
+    @PostMapping("recipe")
     public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
