@@ -6,7 +6,7 @@ import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Null;
+import org.springframework.lang.Nullable;
 
 @Component
 public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
@@ -21,7 +21,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
     }
 
     @Synchronized
-    @Null
+    @Nullable
     @Override
     public RecipeCommand convert(Recipe source) {
         // If the recipe is null, return null
@@ -41,15 +41,18 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
         recipeCommand.setServings(source.getServings());
         recipeCommand.setSource(source.getSource());
         recipeCommand.setUrl(source.getUrl());
+        recipeCommand.setImage(source.getImage());
 
         recipeCommand.setNotes(notesConverter.convert(source.getNotes()));
 
         if(source.getCategories() != null && source.getCategories().size() > 0) {
-            source.getCategories().forEach(category -> recipeCommand.getCategories().add(categoryConverter.convert(category)));
+            source.getCategories()
+                    .forEach(category -> recipeCommand.getCategories().add(categoryConverter.convert(category)));
         }
 
         if(source.getIngredients() != null && source.getIngredients().size() > 0) {
-            source.getIngredients().forEach(ingredient -> recipeCommand.getIngredients().add(ingredientConverter.convert(ingredient)));
+            source.getIngredients()
+                    .forEach(ingredient -> recipeCommand.getIngredients().add(ingredientConverter.convert(ingredient)));
         }
 
         return recipeCommand;

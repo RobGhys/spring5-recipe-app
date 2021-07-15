@@ -22,11 +22,11 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public void saveImageFile(Long recipeId, MultipartFile file) {
         try {
-            Recipe recipe = recipeRepository.findById(recipeId).get();
-            Byte[] byteObjects = new Byte[file.getBytes().length];
+            Recipe recipe = recipeRepository.findById(recipeId).get(); // get the recipe object from Repository
+            Byte[] byteObjects = new Byte[file.getBytes().length]; // Need to convert the file
 
+            // Iterate to convert the java primitive to the java object
             int i = 0;
-
             for (byte b : file.getBytes()) {
                 byteObjects[i++] = b;
             }
@@ -35,6 +35,7 @@ public class ImageServiceImpl implements ImageService {
             recipeRepository.save(recipe);
 
         } catch (IOException e) {
+            // todo handle exception in a better way
             log.error("An error occured during saveImageFile method call", e);
             e.printStackTrace();
         }

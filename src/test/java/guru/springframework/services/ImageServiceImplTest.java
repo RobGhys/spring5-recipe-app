@@ -41,18 +41,19 @@ public class ImageServiceImplTest {
                 "text/plain",
                 "Spring Framework Guru".getBytes());
 
+        // Create a recipe object with id of "id"
         Recipe recipe = new Recipe();
         recipe.setId(id);
-        Optional<Recipe> recipeOptional = Optional.of(recipe);
+        Optional<Recipe> recipeOptional = Optional.of(recipe); // return of the findById method
 
         // When
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-        ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
-        imageService.saveImageFile(id, multipartFile);
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional); // Mock
+        ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class); // For the recipe class
+        imageService.saveImageFile(id, multipartFile); // Save returns "void", so we don't need to test a return value
 
         // Then
         verify(recipeRepository, times(1)).save(argumentCaptor.capture());
-        Recipe savedRecipe = argumentCaptor.getValue();
-        assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length);
+        Recipe savedRecipe = argumentCaptor.getValue(); // Capture the argument
+        assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length); // Make sure the bytes are the same
     }
 }
