@@ -70,4 +70,17 @@ public class RecipeController {
 
         return modelAndView;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // Need to have this, because of precedence issues
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormat(Exception exception) {
+        log.error("Handling Number Format Exception (400)");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("400error"); //matches 404error.html template
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
+    }
 }
