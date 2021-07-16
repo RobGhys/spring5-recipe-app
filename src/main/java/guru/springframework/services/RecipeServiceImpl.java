@@ -33,7 +33,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         // If the recipe is not present, throw an exception
         if (!recipeOptional.isPresent()) {
-            throw new NotFoundException("Could not find the recipe!!!");
+            throw new NotFoundException("Could not find the recipe with ID value #" + id.toString());
         }
 
         return recipeOptional.get(); // Returns the optional if it was present
