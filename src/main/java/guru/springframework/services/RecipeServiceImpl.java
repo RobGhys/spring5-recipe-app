@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         // If the recipe is not present, throw an exception
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Could not find the recipe!!!");
+            throw new NotFoundException("Could not find the recipe!!!");
         }
 
         return recipeOptional.get(); // Returns the optional if it was present
